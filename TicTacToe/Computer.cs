@@ -6,7 +6,6 @@ namespace TicTacToe
     public interface IComputer
     {
         int BestMove();
-
     }
 
     public class Computer : Player, IComputer
