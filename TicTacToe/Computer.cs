@@ -19,8 +19,7 @@ namespace TicTacToe
 
         public int BestMove()
         {
-            var rnd = new Random();
-            int[] moves = Board.AvailableSlots.OrderBy(slot => rnd.Next()).ToArray(); // randomize every turn
+            int[] moves = Board.AvailableSlots; 
             int best = -100;
             int bestSlot = 1;
 

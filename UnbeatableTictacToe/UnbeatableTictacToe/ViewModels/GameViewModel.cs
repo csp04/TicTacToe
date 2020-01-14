@@ -86,14 +86,14 @@ namespace UnbeatableTictacToe.ViewModels
             {
                 if(!IsPlayerTurn)
                 {
-                    int slot = 1;
-                    await Task.Run(() => slot = _computer.BestMove());
+                    int slot = await Task.Run(() =>_computer.BestMove());
                     Play(_player2, slot);
                     Update();
                     IsPlayerTurn = true;
                 }
             }
         }
+
 
         private bool Play(IPlayer p, int slot)
         {
