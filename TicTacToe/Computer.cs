@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TicTacToe
@@ -20,29 +21,33 @@ namespace TicTacToe
         public int BestMove()
         {
             int[] moves = Board.AvailableSlots; 
-            int best = -100;
-            int bestSlot = 1;
+            int best = -1;
+            List<(int Slot, int Depth)> bestMoves = new List<(int Slot, int Depth)>();
 
             foreach (int move in moves)
             {
                 Play(move);
-                int moveValue = miniMax(false);
+                int _depth = 0;
+                int moveValue = miniMax(false, ref _depth);
 
                 Board.Put(move, Chip.BLANK);
 
-                if (moveValue > best)
+                if (moveValue >= best)
                 {
                     best = moveValue;
-                    bestSlot = move;
+                    bestMoves.Add((move, _depth));
                 }
             }
-            
+            int bestSlot = bestMoves.
+                                OrderBy(bm => bm.Depth)
+                                .First().Slot;
             return bestSlot;
         }
 
         //minimax algorithm
-        private int miniMax(bool isMax)
+        private int miniMax(bool isMax, ref int depth)
         {
+            depth += 1;
             int score = evaluate();
 
             if (score != 0)
@@ -62,8 +67,7 @@ namespace TicTacToe
                 else
                     Opponent.Play(move);
 
-                best = isMax ? Math.Max(best, miniMax(!isMax)) : Math.Min(best, miniMax(!isMax));
-
+                best = isMax ? Math.Max(best, miniMax(!isMax, ref depth)) : Math.Min(best, miniMax(!isMax, ref depth));
                 Board.Put(move, Chip.BLANK);
             }
 
