@@ -34,6 +34,9 @@ namespace TicTacToe
 
                 if (moveValue >= best)
                 {
+                    if (moveValue > best)
+                            bestMoves.Clear();
+                            
                     best = moveValue;
                     bestMoves.Add((move, _depth));
                 }
