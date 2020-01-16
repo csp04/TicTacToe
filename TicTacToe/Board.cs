@@ -78,14 +78,7 @@ namespace TicTacToe
             _slots[r, c] = chip;
         }
 
-        private (int Row, int Column) ToRowColumn(int slot)
-        {
-            slot -= 1;
-            int r = slot / Board.MAX_ROW;
-            int c = slot - (Board.MAX_COLUMN * r);
-
-            return (r, c);
-        }
+        
         public Chip WinningChip()
         {
             foreach (var combination in WINNING_COMBINATIONS)
@@ -101,7 +94,15 @@ namespace TicTacToe
             return Chip.BLANK;
         }
 
+        public static (int Row, int Column) ToRowColumn(int slot)
+        {
+            slot -= 1;
+            int r = slot / Board.MAX_ROW;
+            int c = slot - (Board.MAX_COLUMN * r);
 
+            return (r, c);
+        }
+        
         public static int ToSlot(int row, int column)
         {
             return ((Board.MAX_ROW * row) + column) + 1;
