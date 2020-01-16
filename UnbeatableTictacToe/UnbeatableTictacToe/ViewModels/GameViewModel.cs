@@ -46,7 +46,8 @@ namespace UnbeatableTictacToe.ViewModels
                if(Play(_player1, slot))
                {
                    Update();
-                   IsPlayerTurn = false;
+                   if(!IsGameOver(out var _))
+                        IsPlayerTurn = false;
                }
            });
 
