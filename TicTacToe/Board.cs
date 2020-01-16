@@ -93,8 +93,9 @@ namespace TicTacToe
                 Chip[] chips = combination.ToCharArray().Select(c => (int)char.GetNumericValue(c))
                                            .Select(slot => Get(slot)).ToArray();
 
-                if (chips[0] == chips[1] && chips[0] == chips[2])
-                    return chips[0];
+                if(chips[0] != Chip.BLANK) // handle chips to match, should not be blank (Jan-16-2020)
+                    if (chips[0] == chips[1] && chips[0] == chips[2])
+                        return chips[0];
             }
 
             return Chip.BLANK;
